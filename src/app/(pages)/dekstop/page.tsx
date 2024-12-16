@@ -14,22 +14,26 @@ export default function DekstopPage() {
   const name = searchParams.get("name") || "Guest";
 
   const handleOpenMenu = () => {
-
-  }
+    console.log("Menu opened!");
+  };
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className={`${comfortaa.className} w-screen h-screen bg-[url('/images/bg.jpeg')] bg-cover bg-bottom flex flex-col justify-between items-center`}>
-      <div className="w-full h-8 bg-blue-950/90 border border-b-2 border-black flex justify-between items-center px-7">
-         <div className="w-4 h-4 rounded-full border border-black bg-white ">
+      <div
+        className={`${comfortaa.className} w-screen h-screen bg-[url('/images/bg.jpeg')] bg-cover bg-bottom flex flex-col justify-between items-center`}
+      >
+        <div className="w-full h-8 bg-blue-950/90 border-b-2 border-black flex justify-between items-center px-7">
+          <div className="w-4 h-4 rounded-full border border-black bg-white"></div>
+          <span>Welcome, {name}!</span>
+        </div>
 
-         </div>
-         Welcome, {name}!
+        <button
+          className="w-4 h-4 rounded-full border-black border-2 bg-white"
+          onClick={handleOpenMenu}
+        >
+          Menu
+        </button>
       </div>
-      <button className="w-4 h-4 rounded-full border-black border-2 bg-white" onClick={handleOpenMenu}>
-
-      </button> 
-    </div>
     </Suspense>
   );
 }

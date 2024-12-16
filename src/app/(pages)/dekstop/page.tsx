@@ -2,6 +2,7 @@
 
 import { Comfortaa } from "next/font/google";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const comfortaa = Comfortaa({
   weight: ["400", "700"],
@@ -17,7 +18,8 @@ export default function DekstopPage() {
   }
 
   return (
-    <div className={`${comfortaa.className} min-h-screen bg-[url('/images/bg.jpeg')] bg-cover bg-bottom flex flex-col justify-between items-center`}>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className={`${comfortaa.className} w-screen h-screen bg-[url('/images/bg.jpeg')] bg-cover bg-bottom flex flex-col justify-between items-center`}>
       <div className="w-full h-8 bg-blue-950/90 border border-b-2 border-black flex justify-between items-center px-7">
          <div className="w-4 h-4 rounded-full border border-black bg-white ">
 
@@ -28,5 +30,6 @@ export default function DekstopPage() {
 
       </button> 
     </div>
+    </Suspense>
   );
 }

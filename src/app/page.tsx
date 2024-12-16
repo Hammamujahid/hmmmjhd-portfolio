@@ -1,4 +1,8 @@
+"use client";
+
 import { Comfortaa } from "next/font/google";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { HiArrowRightCircle } from "react-icons/hi2";
 
 const comfortaa = Comfortaa({
@@ -7,9 +11,16 @@ const comfortaa = Comfortaa({
 });
 
 export default function Home() {
+  const [name, setName] = useState("");
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    router.push(`/dekstop?name=${encodeURIComponent(name)}`);
+  };
+
   return (
     <div
-      className={`${comfortaa.className} flex flex-col items-center justify-center min-h-screen bg-white gap-4 font bg-[url('/images/bg.jpeg')] bg-cover bg-bottom`}
+      className={`${comfortaa.className} flex flex-col items-center justify-center min-h-screen bg-white gap-4 bg-[url('/images/bg.jpeg')] bg-cover bg-bottom`}
     >
       <div className="absolute inset-0 backdrop-blur-sm bg-white/10"></div>
 
@@ -20,12 +31,18 @@ export default function Home() {
           type="text"
           name="name"
           id="name"
+          onChange={(e) => setName(e.target.value)}
           placeholder="Enter your name"
           className="rounded-md text-black bg-white/60 h-6 px-2 w-32 sm:w-40 focus:outline-none text-sm"
         />
-        <button className="bg-transparent rounded-full">
-        <HiArrowRightCircle className="w-6 h-6 text-white/60"/>
-        </button>
+        {name.trim() && (
+          <button
+            className="bg-transparent rounded-full"
+            onClick={handleNavigation}
+          >
+            <HiArrowRightCircle className="w-6 h-6 text-white/60" />
+          </button>
+        )}
       </div>
     </div>
   );

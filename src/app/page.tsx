@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <div
-      className={`${comfortaa.className} flex flex-col items-center justify-center w-screen h-screen bg-white gap-4 bg-[url('/images/bg.jpeg')] bg-cover bg-bottom`}
+      className={`${comfortaa.className} flex flex-col items-center justify-center w-screen min-h-screen bg-white gap-4 bg-[url('/images/bg.jpeg')] bg-cover bg-bottom`}
     >
       <div className="absolute inset-0 backdrop-blur-sm bg-white/10"></div>
 

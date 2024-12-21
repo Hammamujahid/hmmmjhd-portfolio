@@ -4,6 +4,7 @@ import { Comfortaa } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { HiArrowRightCircle } from "react-icons/hi2";
+import { FaUserCircle, FaSpinner } from "react-icons/fa";
 
 const comfortaa = Comfortaa({
   weight: ["400", "700"],
@@ -27,9 +28,9 @@ export default function Home() {
       className={`${comfortaa.className} w-screen h-screen bg-[url('/images/bg.jpeg')] bg-cover bg-bottom`}
     >
       <div className="backdrop-blur-sm bg-white/10 flex flex-col items-center justify-center w-full h-full  gap-4">
-        <div className="z-10 bg-[url('/images/photoprofile.jpg')] bg-cover w-20 h-20 bg-center rounded-full"></div>
-        <div className="text-sm font-bold z-10 text-white">
-          Mujahid&apos;s Portfolio
+      <FaUserCircle className="w-20 h-20 text-white/85"/>
+      <div className="text-sm font-bold z-10 text-white">
+          Mujahid&apos;s Portfolio (In Progress)
         </div>
         <div className="z-10 flex gap-2">
           {!isLoading ? (
@@ -53,7 +54,7 @@ export default function Home() {
               )}{" "}
             </>
           ) : (
-            <div className="animate-spin z-10 w-5 h-5 border-4 border-white/60 border-t-transparent rounded-full"></div>
+            <FaSpinner className="animate-spin z-10 w-5 h-5" />
           )}
         </div>
       </div>

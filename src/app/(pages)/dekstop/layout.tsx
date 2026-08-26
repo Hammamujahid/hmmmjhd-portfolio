@@ -27,9 +27,25 @@ export default function DekstopLayout({
   const [name, setName] = useState("");
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [locked, setLocked] = useState(false);
+  const [unlocking, setUnlocking] = useState(false);
   const [isRestarting, setIsRestarting] = useState(false);
   const [time, setTime] = useState<Date | null>(null);
   const [hoveredDock, setHoveredDock] = useState<string | null>(null);
+  const [welcome, setWelcome] = useState<"shown" | "leaving" | "hidden">("shown");
+  const [restartBlack, setRestartBlack] = useState(false);
+
+  // Welcome overlay: tampil 3 detik, lalu fade-out
+  useEffect(() => {
+    const t = setTimeout(() => setWelcome("leaving"), 3000);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    if (welcome === "leaving") {
+      const t = setTimeout(() => setWelcome("hidden"), 700);
+      return () => clearTimeout(t);
+    }
+  }, [welcome]);
 
   const apps: AppItem[] = [
     { label: "About Me", icon: <FaUser className="w-5 h-5" />, href: `/dekstop/about?name=${encodeURIComponent(name)}` },
@@ -41,8 +57,8 @@ export default function DekstopLayout({
   const socials: AppItem[] = [
     { label: "Instagram", icon: <FaInstagram />, href: "https://www.instagram.com/" },
     { label: "LinkedIn", icon: <FaLinkedin />, href: "https://www.linkedin.com/" },
-    { label: "Discord", icon: <FaDiscord />, href: "https://discord.com/" },
-    { label: "WhatsApp", icon: <FaWhatsapp />, href: "https://wa.me/085755500502" },
+    { label: "Discord", icon: <FaDiscord />, href: "https://discordapp.com/users/892966006971043860" },
+    { label: "WhatsApp", icon: <FaWhatsapp />, href: "https://wa.me/+625755500502" },
   ];
 
   useEffect(() => {
@@ -75,54 +91,47 @@ export default function DekstopLayout({
 
   const handleLock = () => {
     setLocked(true);
+    setUnlocking(false);
     setIsOpenMenu(false);
+  };
+
+  const handleUnlock = () => {
+    if (unlocking) return;
+    setUnlocking(true);
+    setTimeout(() => {
+      setLocked(false);
+      setUnlocking(false);
+    }, 500);
   };
 
   const handleRestart = () => {
     setIsOpenMenu(false);
     setIsRestarting(true);
     setTimeout(() => {
-      router.push("/");
+      setRestartBlack(true);
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     }, 1600);
   };
 
   const formattedTime = time
-    ? time.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+    ? time.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
     : "--:--";
   const formattedDate = time
-    ? time.toLocaleDateString("id-ID", { weekday: "short", day: "numeric", month: "short" })
+    ? time.toLocaleDateString("en-US", { weekday: "short", day: "numeric", month: "short" })
     : "";
 
-  // Layar hitam saat restart — menutup semuanya
-  if (isRestarting) {
+  // Layar restart: hitam + spinner, lalu fade ke hitam total sebelum home
+  // Lock screen — overlay di atas desktop agar transisinya terlihat
+  if (restartBlack || isRestarting) {
     return (
       <div className="w-screen h-screen bg-black flex items-center justify-center">
-        <HiArrowPath className="w-8 h-8 text-white/40 animate-spin" />
-      </div>
-    );
-  }
-
-  // Lock screen — menutup semuanya
-  if (locked) {
-    return (
-      <div
-        onClick={() => setLocked(false)}
-        className={`${comfortaa.className} w-screen h-screen flex flex-col items-center justify-center gap-4 cursor-pointer relative overflow-hidden`}
-      >
-        <Background />
-        <div className="absolute inset-0 bg-nightblue/60" />
-        <div className={`${jetbrainsMono.className} relative text-silverwhite text-6xl font-light tracking-tight`}>
-          {formattedTime}
-        </div>
-        <div className="relative text-silverwhite/70 text-sm">{formattedDate}</div>
-        <div className="relative mt-8 flex flex-col items-center gap-2">
-          <div className="w-16 h-16 rounded-full bg-pink/20 border border-pink/50 flex items-center justify-center">
-            <BiSolidLock className="w-6 h-6 text-pink" />
-          </div>
-          <span className="text-silverwhite/60 text-xs">
-            Klik di mana saja untuk membuka kunci
-          </span>
-        </div>
+        <HiArrowPath
+          className={`w-8 h-8 text-white/40 animate-spin transition-opacity duration-500 ${
+            isRestarting ? "opacity-100" : "opacity-0"
+          }`}
+        />
       </div>
     );
   }
@@ -152,7 +161,7 @@ export default function DekstopLayout({
             <FaStar className="w-4 h-4" />
           </button>
           <span className="text-silverwhite text-xs font-semibold tracking-wide">
-            Portfolio
+            Hammam Mujahid's Portfolio
           </span>
         </div>
 
@@ -160,14 +169,21 @@ export default function DekstopLayout({
           <span className="text-silverwhite/60 text-xs">
             Welcome, <span className="text-silverwhite font-medium">{name}</span>
           </span>
-          <span className="text-silverwhite/30 text-xs">|</span>
+          <span className="hidden sm:block text-silverwhite/30 text-xs">|</span>
           <span className={`${jetbrainsMono.className} text-xs tracking-wide hidden sm:inline`}>
             {formattedDate} {formattedTime}
           </span>
-          <span className={`${jetbrainsMono.className} text-xs tracking-wide sm:hidden`}>
-            {formattedTime}
-          </span>
         </div>
+      </div>
+
+      {/* Jam widget — mode HP */}
+      <div className="sm:hidden absolute top-14 left-4 z-10 flex flex-col items-start gap-1 px-4 py-3 rounded-2xl bg-lightdark/60 backdrop-blur-xl border border-pink/30 shadow-lg">
+        <span className={`${jetbrainsMono.className} text-3xl font-light tracking-wide text-silverwhite`}>
+          {formattedTime}
+        </span>
+        <span className="text-[10px] text-silverwhite/60 tracking-wide">
+          {formattedDate}
+        </span>
       </div>
 
       {/* Dropdown menu */}
@@ -247,6 +263,56 @@ export default function DekstopLayout({
 
       {/* Window overlay — halaman child (about / projects / contact) */}
       {children}
+
+      {/* Welcome overlay */}
+      {welcome !== "hidden" && (
+        <div
+          className={`pointer-events-none fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-700 ${
+            welcome === "leaving" ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <div className="absolute inset-0 bg-nightblue/70" />
+          <div className="relative flex flex-col items-center gap-5">
+            <FaStar className="w-12 h-12 sm:w-14 sm:h-14 text-pink drop-shadow-[0_0_25px_rgba(247,37,133,0.9)]" />
+            <span
+              className={`${jetbrainsMono.className} text-6xl sm:text-8xl font-light tracking-[0.15em] text-silverwhite drop-shadow-[0_0_30px_rgba(228,233,240,0.7)] ${
+                welcome === "shown" ? "welcome-anim" : ""
+              }`}
+            >
+              Welcome
+            </span>
+            {name && (
+              <span className="text-base sm:text-xl text-silverwhite/80 tracking-widest fade-in-up">
+                {name}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Lock screen overlay */}
+      {locked && (
+        <div
+          onClick={handleUnlock}
+          className={`absolute inset-0 z-[60] flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-500 ease-out ${
+            unlocking ? "opacity-0 scale-110" : "opacity-100 scale-100"
+          }`}
+        >
+          <div className="absolute inset-0 bg-nightblue/60" />
+          <div className={`${jetbrainsMono.className} relative text-silverwhite text-6xl sm:text-8xl font-light tracking-tight`}>
+            {formattedTime}
+          </div>
+          <div className="relative text-silverwhite/70 text-sm">{formattedDate}</div>
+          <div className="relative mt-8 flex flex-col items-center gap-2">
+            <div className="w-16 h-16 rounded-full bg-pink/20 border border-pink/50 flex items-center justify-center">
+              <BiSolidLock className="w-6 h-6 text-pink" />
+            </div>
+            <span className="text-silverwhite/60 text-xs">
+              Klik di mana saja untuk membuka kunci
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

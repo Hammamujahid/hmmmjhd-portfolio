@@ -4,7 +4,7 @@ import { Comfortaa, JetBrains_Mono } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HiArrowRightCircle } from "react-icons/hi2";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaStar } from "react-icons/fa";
 import Background from "@/components/Background";
 
 const comfortaa = Comfortaa({
@@ -22,6 +22,18 @@ export default function Home() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashLeaving, setSplashLeaving] = useState(false);
+
+  // Splash screen: layar hitam + FaStar putih selama 5 detik, lalu fade-out
+  useEffect(() => {
+    const t = setTimeout(() => setSplashLeaving(true), 5000);
+    const t2 = setTimeout(() => setShowSplash(false), 5700);
+    return () => {
+      clearTimeout(t);
+      clearTimeout(t2);
+    };
+  }, []);
 
   // Animasikan progress bar dari 0 -> 100% begitu proses masuk dimulai
   useEffect(() => {
@@ -47,6 +59,31 @@ export default function Home() {
     <div
       className={`${comfortaa.className} relative w-screen h-screen overflow-hidden`}
     >
+      {/* Splash screen: layar hitam + FaStar putih */}
+      {showSplash && (
+        <div
+          className={`absolute inset-0 z-50 bg-black flex items-center justify-center transition-all duration-700 ease-out ${
+            splashLeaving ? "opacity-0 scale-110" : "opacity-100 scale-100"
+          }`}
+        >
+          <div
+            className={`flex flex-col items-center gap-6 transition-all duration-700 ${
+              splashLeaving ? "opacity-0 translate-y-6" : "opacity-100"
+            }`}
+          >
+            <FaStar className="w-16 h-16 sm:w-20 sm:h-20 text-white animate-pulse fade-in-up drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]" />
+            <span
+              className={`text-[10px] sm:text-xs text-white/60 tracking-[0.3em] uppercase fade-in-up ${
+                splashLeaving ? "" : "delay-200"
+              }`}
+            >
+              Hammam Mujahid&apos;s Portfolio
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Konten utama */}
       <Background />
       {/* Veil gelap biar konsisten sama tampilan desktop & lock screen */}
       <div className="absolute inset-0 bg-nightblue/60 backdrop-blur-sm" />
@@ -59,14 +96,18 @@ export default function Home() {
       </div>
 
       {/* Kartu login */}
-      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center gap-4 px-6">
+      <div
+        className={`relative z-10 w-full h-full flex flex-col items-center justify-center gap-4 px-6 ${
+          showSplash ? "opacity-0" : "fade-in-up"
+        }`}
+      >
         <div className="relative">
           <div className="absolute inset-0 rounded-full bg-pink/20 blur-xl scale-110" />
           <FaUserCircle className="relative w-20 h-20 sm:w-24 sm:h-24 text-silverwhite/90 drop-shadow-lg" />
         </div>
 
         <div className="text-base sm:text-lg font-bold text-silverwhite text-center">
-          Mujahid&apos;s Portfolio
+          Hammam Mujahid&apos;s Portfolio
         </div>
 
         <div className="w-56 sm:w-72 flex flex-col items-center gap-3 mt-2">

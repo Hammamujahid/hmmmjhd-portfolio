@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0B1526"/>
+  <rect x="0" y="0" width="800" height="44" fill="#1B2A3F"/>
+  <circle cx="24" cy="22" r="6" fill="#F72585"/>
+  <circle cx="44" cy="22" r="6" fill="#E4E9F0" opacity="0.4"/>
+  <circle cx="64" cy="22" r="6" fill="#E4E9F0" opacity="0.4"/>
+  <rect x="100" y="14" width="80" height="16" rx="4" fill="#F72585"/>
+  <text x="680" y="28" font-family="monospace" font-size="14" fill="#E4E9F0" opacity="0.7">Portfolio</text>
+  <text x="60" y="160" font-family="sans-serif" font-size="46" font-weight="bold" fill="#E4E9F0">Mujahid's</text>
+  <text x="60" y="210" font-family="sans-serif" font-size="46" font-weight="bold" fill="#F72585">Portfolio</text>
+  <rect x="60" y="240" width="140" height="40" rx="20" fill="#F72585"/>
+  <rect x="470" y="120" width="270" height="240" rx="16" fill="#1B2A3F" stroke="#F72585" stroke-width="2"/>
+  <circle cx="605" cy="240" r="60" fill="#F72585" opacity="0.5"/>
+</svg>

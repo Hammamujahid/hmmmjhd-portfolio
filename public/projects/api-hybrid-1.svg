@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0B1526"/>
+  <rect x="0" y="0" width="800" height="44" fill="#1B2A3F"/>
+  <text x="40" y="120" font-family="sans-serif" font-size="34" font-weight="bold" fill="#E4E9F0">Dashboard</text>
+  <rect x="40" y="150" width="430" height="200" rx="14" fill="#1B2A3F" stroke="#F72585" stroke-width="2"/>
+  <rect x="60" y="180" width="120" height="60" rx="8" fill="#F72585" opacity="0.6"/>
+  <rect x="200" y="180" width="120" height="60" rx="8" fill="#E4E9F0" opacity="0.15"/>
+  <polyline points="70,320 140,290 210,305 280,250 350,270 420,230" fill="none" stroke="#F72585" stroke-width="4"/>
+  <rect x="520" y="150" width="230" height="240" rx="16" fill="#1B2A3F"/>
+  <text x="560" y="290" font-family="sans-serif" font-size="90" fill="#F72585">}</text>
+</svg>

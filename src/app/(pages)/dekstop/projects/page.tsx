@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Comfortaa } from "next/font/google";
 import {
   FaFolder,
@@ -10,6 +11,7 @@ import {
   FaDatabase,
   FaMobileAlt,
   FaPalette,
+  FaMicrochip,
 } from "react-icons/fa";
 
 const comfortaa = Comfortaa({
@@ -22,41 +24,72 @@ const FOLDER_ICON = <FaFolder className="w-6 h-6 text-pink" />;
 type Project = {
   slug: string;
   name: string;
-  category: "Web" | "Mobile" | "Design";
+  category: "Web" | "Mobile" | "Other";
   icon?: React.ReactNode;
+  logo?: string;
 };
 
 const projects: Project[] = [
   {
-    slug: "portfolio-dekstop",
-    name: "Portfolio Dekstop",
-    category: "Web",
-    icon: <FaCode className="w-6 h-6 text-pink" />,
-  },
-  {
-    slug: "ecommerce-api",
-    name: "E-Commerce API",
-    category: "Web",
-    icon: <FaDatabase className="w-6 h-6 text-pink" />,
-  },
-  {
-    slug: "mobile-kasir-app",
-    name: "Mobile Kasir App",
+    slug: "smart-hydroponic",
+    name: "Smart Hydroponic",
     category: "Mobile",
-    icon: <FaMobileAlt className="w-6 h-6 text-pink" />,
+    logo: "/images/smart_hydroponic/logo.png",
   },
   {
-    slug: "ui-design-kit",
-    name: "UI Design Kit",
-    category: "Design",
-    icon: <FaPalette className="w-6 h-6 text-pink" />,
+    slug: "simlitabmas",
+    name: "Simlitabmas",
+    category: "Web",
+    icon: <FaFolder className="w-6 h-6 text-pink" />,
+  },
+  {
+    slug: "docxtra",
+    name: "DOCXTRA",
+    category: "Web",
+    icon: <FaFolder className="w-6 h-6 text-pink" />,
+  },
+    {
+    slug: "e-learning",
+    name: "E-Learning",
+    category: "Web",
+    icon: <FaFolder className="w-6 h-6 text-pink" />,
+  },
+    {
+    slug: "coffee-brewer",
+    name: "Coffee Brewer",
+    category: "Web",
+    icon: <FaFolder className="w-6 h-6 text-pink" />,
+  },
+    {
+    slug: "serviskompresor",
+    name: "Service Kompresor",
+    category: "Web",
+    icon: <FaFolder className="w-6 h-6 text-pink" />,
+  },
+  {
+    slug: "e-siklinik",
+    name: "E-Siklinik",
+    category: "Mobile",
+    icon: <FaFolder className="w-6 h-6 text-pink" />,
+  },
+    {
+    slug: "ai-digital",
+    name: "AI Digital",
+    category: "Mobile",
+    icon: <FaFolder className="w-6 h-6 text-pink" />,
+  },
+  {
+    slug: "n8n-worklows",
+    name: "N8N Workflows",
+    category: "Other",
+    icon: <FaFolder className="w-6 h-6 text-pink" />,
   },
 ];
 
 const folders = [
   { id: "Web", label: "Web", icon: <FaFolder className="w-4 h-4 text-pink" /> },
   { id: "Mobile", label: "Mobile", icon: <FaFolder className="w-4 h-4 text-pink" /> },
-  { id: "Design", label: "Design", icon: <FaFolder className="w-4 h-4 text-pink" /> },
+  { id: "Other", label: "Other", icon: <FaFolder className="w-4 h-4 text-pink" /> },
 ];
 
 export default function Projects() {
@@ -209,7 +242,18 @@ export default function Projects() {
                   className="group flex flex-row items-center gap-3 rounded-xl p-2 py-2.5 text-left transition hover:bg-pink/10 sm:flex-col sm:items-center sm:gap-1.5 sm:p-2 sm:text-center"
                 >
                   <span className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 sm:rounded-xl shrink-0 rounded-xl bg-pink/15 text-2xl sm:text-xl text-pink shadow-sm group-hover:bg-pink/25 group-hover:scale-105 transition">
-                    {project.icon ?? FOLDER_ICON}
+                    {project.logo ? (
+                      <Image
+                        src={project.logo}
+                        alt={`${project.name} logo`}
+                        width={48}
+                        height={48}
+                        sizes="48px"
+                        className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+                      />
+                    ) : (
+                      project.icon ?? FOLDER_ICON
+                    )}
                   </span>
                   <span className="text-xs sm:text-[11px] sm:text-xs font-semibold text-nightblue leading-tight">
                     {project.name}

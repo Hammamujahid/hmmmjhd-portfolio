@@ -22,7 +22,12 @@ const aboutText =
 const skills = [
   {
     category: "Web & Mobile",
-    items: ["Laravel", "Next.js / React", "Tailwind CSS", "HTML / CSS / JS", "Flutter / Dart"],
+    items: [
+      "Laravel",
+      "Next.js / React",
+      "Tailwind CSS",
+      "Flutter / Dart",
+    ],
   },
   {
     category: "Databases",
@@ -46,19 +51,20 @@ const skills = [
 const education = [
   {
     school: "Electronic Engineering Polytechnic Institute of Surabaya",
-    degree: "D3 Teknik Informatika",
-    year: "2022 — 2025 / IPK 3.61",
+    degree: "D4 Informatics Engineering",
+    year: "2025 - 2026 / IPK 3.67",
   },
   {
     school: "Electronic Engineering Polytechnic Institute of Surabaya",
-    degree: "D4/LJ Teknik Informatika",
-    year: "2025 - 2026 / IPK 3.7",
+    degree: "D3 Informatics Engineering",
+    year: "2022 — 2025 / IPK 3.61",
   },
 ];
 
 export default function About() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -68,30 +74,40 @@ export default function About() {
     return () => clearTimeout(t);
   }, []);
 
+  const handleClose = () => {
+    if (closing) return;
+    setClosing(true);
+    setTimeout(() => {
+      router.push(`/dekstop?name=${encodeURIComponent(name)}`);
+    }, 320);
+  };
+
   return (
     <div
-      className={`${comfortaa.className} relative w-screen h-screen bg-[url('/images/bg.jpeg')] bg-cover bg-bottom overflow-hidden flex items-center justify-center px-4 py-6`}
+      className={`${comfortaa.className} fixed inset-0 z-40 flex items-center justify-center px-4 py-6`}
     >
-      {/* Veil gelap, konsisten sama desktop & home */}
-      <div className="absolute inset-0 bg-[#1B1830]/50 backdrop-blur-sm" />
+      {/* Backdrop menutupi desktop, tanpa blur */}
+      <div className="absolute inset-0 bg-nightblue/50" />
 
       {/* Window ala "About This Mac" */}
       <div
-        className={`relative z-10 w-full max-w-md md:max-w-3xl lg:max-w-4xl max-h-full flex flex-col bg-[#F5F1E8]/95 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-out ${
-          mounted ? "opacity-100 scale-100" : "opacity-0 scale-95"
+        className={`relative z-10 w-full max-w-md md:max-w-3xl lg:max-w-4xl max-h-full flex flex-col bg-silverwhite/95 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-out ${
+          closing
+            ? "opacity-0 scale-75 -translate-y-6 origin-center"
+            : mounted
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-95"
         }`}
       >
         {/* Title bar */}
-        <div className="relative shrink-0 h-9 flex items-center px-4 bg-[#E9E4D8] border-b border-black/5">
+        <div className="relative shrink-0 h-9 flex items-center px-4 bg-lightdark border-b border-black/10">
           <div className="flex items-center gap-2">
             <button
-              className="w-3 h-3 rounded-full bg-[#FF5F57]"
-              onClick={() =>
-                router.push(`/dekstop?name=${encodeURIComponent(name)}`)
-              }
+              className="w-3 h-3 rounded-full bg-pink"
+              onClick={handleClose}
             />
           </div>
-          <span className="absolute left-1/2 -translate-x-1/2 text-xs font-semibold text-[#1B1830]/70">
+          <span className="absolute left-1/2 -translate-x-1/2 text-xs font-semibold text-silverwhite/80">
             About Me
           </span>
         </div>
@@ -102,22 +118,22 @@ export default function About() {
           <div className="contents md:flex md:flex-col md:gap-6 md:border-r md:border-black/5 md:pr-8">
             {/* Profil */}
             <div className="order-1 flex flex-col items-center gap-4 md:py-2">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full overflow-hidden ring-4 ring-[#E8A33D]/40 shadow-lg">
+              <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full overflow-hidden ring-4 ring-pink/40 shadow-lg">
                 <Image
-                  src="/images/photoprofile.jpg"
+                  src="/images/profile.jpeg"
                   alt="Foto Mujahid"
                   fill
                   sizes="(min-width: 768px) 144px, 128px"
-                  className="object-cover"
+                  className="object-cover object-top"
                   priority
                 />
               </div>
 
               <div className="flex flex-col items-center gap-0.5 text-center">
-                <span className="text-lg sm:text-xl font-bold text-[#1B1830]">
+                <span className="text-lg sm:text-xl font-bold text-nightblue">
                   Hammam Mujahid
                 </span>
-                <span className="text-xs sm:text-sm text-[#1B1830]/60">
+                <span className="text-xs sm:text-sm text-nightblue/60">
                   Full-Stack Developer
                 </span>
               </div>
@@ -125,24 +141,27 @@ export default function About() {
 
             {/* Pendidikan */}
             <section className="order-3 w-full flex flex-col gap-3">
-              <h2 className="text-[11px] font-bold uppercase tracking-wider text-[#1B1830]/40">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-nightblue/40">
                 Educations
               </h2>
               <div className="flex flex-col gap-3">
-                {education.map((edu) => (
-                  <div key={edu.school} className="flex items-start gap-3">
-                    <span className="mt-0.5 flex items-center justify-center w-8 h-8 shrink-0 rounded-lg bg-[#E8A33D]/15 text-[#E8A33D]">
+                {education.map((edu, i) => (
+                  <div
+                    key={`${edu.school}-${i}`}
+                    className="flex items-start gap-3"
+                  >
+                    <span className="mt-0.5 flex items-center justify-center w-8 h-8 shrink-0 rounded-lg bg-pink/15 text-pink">
                       <FaGraduationCap className="w-4 h-4" />
                     </span>
                     <div className="flex flex-col">
-                      <span className="text-xs sm:text-sm font-semibold text-[#1B1830]">
+                      <span className="text-xs sm:text-sm font-semibold text-nightblue">
                         {edu.school}
                       </span>
-                      <span className="text-[11px] sm:text-xs text-[#1B1830]/60">
+                      <span className="text-[11px] sm:text-xs text-nightblue/60">
                         {edu.degree}
                       </span>
                       <span
-                        className={`${jetbrainsMono.className} text-[10px] text-[#1B1830]/40`}
+                        className={`${jetbrainsMono.className} text-[10px] text-nightblue/40`}
                       >
                         {edu.year}
                       </span>
@@ -160,23 +179,23 @@ export default function About() {
               {/* <h2 className="text-[11px] font-bold uppercase tracking-wider text-[#1B1830]/40">
                 About Me
               </h2> */}
-              <p className="text-xs sm:text-sm leading-relaxed text-[#1B1830]/80 text-justify">
+              <p className="text-xs sm:text-sm leading-relaxed text-nightblue/80 text-justify">
                 {aboutText}
               </p>
             </section>
 
             {/* My Skills */}
             <section className="order-4 w-full flex flex-col gap-3">
-              <h2 className="text-[11px] font-bold uppercase tracking-wider text-[#1B1830]/40">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-nightblue/40">
                 My Skills
               </h2>
               <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {skills.map((skill) => (
                   <div key={skill.category} className="flex flex-col gap-1.5">
-                    <h3 className="text-xs font-semibold text-[#1B1830]/75">
+                    <h3 className="text-xs font-semibold text-nightblue/75">
                       {skill.category}
                     </h3>
-                    <ul className="flex flex-col gap-0.5 text-[11px] sm:text-xs text-[#1B1830]/60">
+                    <ul className="flex flex-col gap-0.5 text-[11px] sm:text-xs text-nightblue/60">
                       {skill.items.map((item) => (
                         <li key={item}>- {item}</li>
                       ))}

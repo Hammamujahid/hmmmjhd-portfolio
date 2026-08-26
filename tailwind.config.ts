@@ -13,6 +13,10 @@ export default {
         montserrat: ['Montserrat', 'sans-serif'],
       },
       colors: {
+        nightblue: "#0B1526",
+        pink: "#F72585",
+        lightdark: "#1B2A3F",
+        silverwhite: "#E4E9F0",
         background: "var(--background)",
         foreground: "var(--foreground)",
       },

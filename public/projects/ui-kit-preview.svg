@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a1757"/>
+      <stop offset="100%" stop-color="#F72585"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="#0B1526"/>
+  <circle cx="400" cy="250" r="150" fill="none" stroke="#F72585" stroke-width="4"/>
+  <circle cx="400" cy="250" r="100" fill="#F72585" opacity="0.15"/>
+  <circle cx="400" cy="250" r="40" fill="#F72585"/>
+  <text x="400" y="445" font-family="sans-serif" font-size="30" font-weight="bold" fill="#E4E9F0" text-anchor="middle">UI Design Kit</text>
+</svg>

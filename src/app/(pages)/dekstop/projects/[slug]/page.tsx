@@ -39,11 +39,11 @@ const projectData: Record<string, ProjectDetail> = {
   "smart-hydroponic": {
     name: "Smart Hydroponic",
     category: "Mobile",
-    role: "Full-Stack IoT Developer (Solo Developer)",
+    role: "Full-Stack IoT Developer (Solo)",
     timeline: "January 2026 - July 2026",
     type: "Final Project (D4)",
     description:
-      "An Internet of Things (IoT)-based hydroponic automation system that monitors and adjusts nutrient and pH conditions automatically and in real-time. It reads pH, EC, and water level values using sensors integrated with an ESP32 microcontroller, and is connected to a cloud-based mobile application to support remote control.",
+      "Hydroponic growers often struggle to keep pH, nutrient (EC), and water levels stable. Manual monitoring is time-consuming, and any imbalance can quickly harm crops. Smart Hydroponic solves this with an IoT-based automation system that keeps these conditions in check automatically and in real time. pH, EC, and water level sensors feed live readings into an ESP32 microcontroller, which sends the data to a cloud-backed mobile app (Flutter + Firebase). From there, users can monitor conditions and control the pumps, either manually or automatically based on configurable thresholds, from anywhere. The result is healthier crops for hydroponic growers and hobbyists, with less daily effort and full remote control over their system.",
     tech: ["Flutter", "Firebase", "ESP32 Microcontroller"],
     features: [
       "Real-time monitoring of pH, nutrient (EC), and water level values.",
@@ -59,29 +59,188 @@ const projectData: Record<string, ProjectDetail> = {
     template: "mixed",
     logo: "/images/smart_hydroponic/logo.png",
     github: "https://github.com/Hammamujahid/smart_hydroponic",
-     links: [
-    { label: "APK", url: "https://drive.google.com/", icon: <FaAndroid /> },
+    links: [
+    { label: "APK", url: "https://drive.google.com/file/d/1JwogZrCrAp5soMq_yq3hkyyG_EFkLRQy/view?usp=sharing", icon: <FaAndroid /> },
     { label: "Project Presentation", url: "https://drive.google.com/file/d/1xNjZ1o6AQNOil9FUEK5sj6VGY-LNxD-R/view?usp=sharing", icon: <FaFilePowerpoint /> },
   ],
     screenshots: [
       { src: "/images/smart_hydroponic/2.jpeg", caption: "Hydroponic system hardware" },
-      { src: "/images/smart_hydroponic/1.jpg", caption: "Mobile application" },
+      { src: "/images/smart_hydroponic/1.png", caption: "3D mockup view" },
     ],
   },
+
+  "simlitabmas": {
+    name: "Simlitabmas",
+    category: "Web",
+    role: "Full-Stack Developer (Team)",
+    timeline: "January 2025 - June 2025",
+    type: "Final Project (D3)",
+    description:
+      "Universities juggle a huge volume of research and community service (pengabdian) submissions, and managing proposals, monitoring reports, and coordinating reviewers manually is slow, scattered, and error-prone. Simlitabmas solves this with a research and community service information management system that digitizes the full submission lifecycle. Applicants submit proposals and supporting aspects, which move through monitoring and evaluation (monev) until the final stage, all reviewable by reviewers through a dedicated workflow. This makes life easier for everyone. Applicants get a simpler, guided way to submit and track their work from proposal to finish. Reviewers can evaluate submissions faster. Admins save significant time by plotting reviewers and managing all system data from one centralized place. The university, in turn, gets a transparent, end-to-end process.",
+    tech: ["Next.js", "Prisma", "PostgreSQL", "MinIO"],
+    features: [
+      "End-to-end submission workflow for research and community service proposals, covering proposal and related aspects up to the final stage.",
+      "Monitoring and evaluation (monev) features that streamline the review process for reviewers.",
+      "Role-based access for applicants, reviewers, and admins, including admin tools for plotting assignments and managing data.",
+      "Centralized document and data management for the entire submission lifecycle.",
+    ],
+    contributions: [
+      "Developed the full-stack reviewer module for both research and community service areas.",
+      "Built features enabling admins to plot/assign reviewers to research and community service proposals.",
+      "Implemented the reviewer workflow for reviewing and managing assigned submissions.",
+      "Collaborated with team members on the overall system design and integration.",
+    ],
+    template: "web",
+    logo: "/images/simlitabmas/logo.png",
+    github: "https://github.com/Hammamujahid/Simlitabmas",
+    screenshots: [
+      { src: "/images/simlitabmas/1.png", caption: "Review page view" },
+      { src: "/images/simlitabmas/2.png", caption: "3D mockup view" },
+    ],
+  },
+  serviskompresor: {
+    name: "Service Kompresor",
+    category: "Web",
+    role: "Frontend Developer (Solo)",
+    timeline: "June 2026",
+    type: "Freelance Project",
+    description:
+      "Service Kompresor is a landing page built for PT. Dayasa Cipta Mandiri to showcase their compressor maintenance and repair services. It presents the company, highlights key service offerings, and guides potential customers toward getting in touch, all wrapped in a clean, brand-aligned design.",
+    tech: ["Html", "CSS", "Javascript"],
+    features: [
+      "Visually polished landing page tailored to the company brand.",
+      "Dedicated sections, including a hero banner and team overview.",
+      "Clear calls to action that direct visitors to contact the company.",
+      "Responsive layout for a consistent experience on desktop and mobile.",
+    ],
+    contributions: [
+      "Developed the full landing page interface using HTML, CSS, and JavaScript.",
+      "Built each section, from the hero banner to the team overview, to match the company branding.",
+      "Ensured a responsive, clean, and accessible layout across devices.",
+    ],
+    template: "web",
+    logo: "/images/serviskompresor/logo.png",
+    github: "https://github.com/Hammamujahid/serviskompresor",
+    screenshots: [
+      { src: "/images/serviskompresor/1.png", caption: "Hero section view" },
+      { src: "/images/serviskompresor/2.png", caption: "Team section view" },
+    ],
+    links: [
+      { label: "Live Demo", url: "https://www.serviskompresor.com/", icon: <FaExternalLinkAlt /> },
+    ],
+  },
+  "e-siklinik": {
+    name: "E-Siklinik",
+    category: "Mobile",
+    role: "Mobile Developer (Team)",
+    timeline: "April 2024 - June 2024",
+    type: "Academic Project",
+    description:
+      "E-Siklinik is a mobile application designed to digitize clinic management operations. It streamlines patient registration, medical record management, and appointment scheduling, providing healthcare facilities with an efficient digital solution to replace manual processes.",
+    tech: ["Flutter", "Laravel", "MySQL"],
+    features: [
+      "Patient registration and profile management system.",
+      "Digital medical records with history tracking.",
+      "Appointment scheduling and management.",
+      "Real-time data synchronization across devices.",
+    ],
+    contributions: [
+      "Designed and developed the complete mobile application using Flutter.",
+      "Implemented Laravel and MySQL for the backend and database.",
+      "Created intuitive UI/UX for healthcare staff and patients.",
+      "Built the medical records and appointment management modules.",
+    ],
+    template: "mobile",
+    logo: "/images/e-siklinik/logo.png",
+    github: "https://github.com/Hammamujahid/E-Siklinik",
+    links: [
+      { label: "Project Presentation", url: "https://drive.google.com/file/d/1U5ilZfyKFj86SqN_qIVf-LbwX53PmCRf/view?usp=sharing", icon: <FaFilePowerpoint /> },
+      { label: "APK", url: "https://drive.google.com/file/d/1bcpKIIfXQVzMkluU-qr3J_z82TDz7R0q/view?usp=sharing", icon: <FaAndroid /> },
+    ],
+    screenshots: [
+      { src: "/images/e-siklinik/1.png", caption: "Dashboard screen" },
+      { src: "/images/e-siklinik/2.png", caption: "3D mockup view" },
+    ],
+  },
+  "e-learning": {
+    name: "E-Learning",
+    category: "Web",
+    role: "Full-Stack Developer (Solo)",
+    timeline: "November 2023 - December 2023",
+    type: "Academic Project",
+    description:
+      "E-Learning is a web-based learning management system designed to facilitate online education. It provides a platform for instructors to upload course materials, create quizzes, and track student progress, while enabling students to access learning content and submit assignments digitally.",
+    tech: ["Laravel", "ReactJS", "PostgreSQL"],
+    features: [
+      "Course content management with file uploads.",
+      "Online quiz and assessment system.",
+      "Student progress tracking and grade management.",
+      "Discussion forum for student-instructor interaction.",
+    ],
+    contributions: [
+      "Developed the full-stack application using Laravel framework.",
+      "Designed and implemented the database schema with PostgreSQL.",
+      "Built responsive UI using Bootstrap for cross-device compatibility.",
+      "Implemented authentication and role-based access control.",
+    ],
+    template: "web",
+    logo: "/images/e-learning/logo.png",
+    github: "https://github.com/Hammamujahid/e-learning",
+    screenshots: [
+      { src: "/images/e-learning/1.png", caption: "Hero section" },
+      { src: "/images/e-learning/2.png", caption: "Material page" },
+    ],
+  },
+  docxtra: {
+    name: "DOCXTRA",
+    category: "Web",
+    role: "Mobile & Frontend Developer (Team)",
+    timeline: "February 2024 - June 2024",
+    type: "Academic Project",
+    description:
+      "DOCXTRA is a document management and collaboration platform that combines web and mobile interfaces. It enables teams to create, edit, and share documents in real-time, with features for version control, commenting, and collaborative editing across multiple devices.",
+    tech: ["Next.js", "Flutter", "Firebase", "FastAPI"],
+    features: [
+      "Real-time collaborative document editing.",
+      "Version history and document rollback capabilities.",
+      "Cross-platform access via web and mobile applications.",
+      "Team collaboration with comments and annotations.",
+    ],
+    contributions: [
+      "Developed the web application using Next.js with real-time features.",
+      "Built the mobile companion app using Flutter.",
+      "Implemented document synchronization and version control system.",
+      "Designed the database architecture using Firebase.",
+    ],
+    template: "mixed",
+    logo: "/images/docxtra/logo.png",
+    github: "https://github.com/Hammamujahid/docxtra",
+    links: [
+      { label : "Live Demo", url: "https://docxtra.vercel.app/", icon: <FaExternalLinkAlt /> },
+      { label : "APK", url: "https://play.google.com/store/apps/details?id=com.docxtra.mobile", icon: <FaAndroid /> },
+    ],
+    screenshots: [
+      { src: "/images/docxtra/1.png", caption: "Web view" },
+      { src: "/images/docxtra/2.png", caption: "3d mockup view" },
+    ],
+  }
 };
 
 function Screenshot({ src, caption }: { src: string; caption: string }) {
   return (
-    <figure className="group overflow-hidden rounded-xl bg-nightblue ring-1 ring-nightblue/10">
-      <Image
-        src={src}
-        alt={caption}
-        width={1200}
-        height={750}
-        sizes="(max-width: 768px) 100vw, 700px"
-        className="w-full h-auto transition duration-300 group-hover:scale-105"
-      />
-      <figcaption className="px-3 py-2 text-[11px] text-nightblue/60 bg-silverwhite/80">
+    <figure className="group flex flex-col">
+      {/* Tanpa background — gambar langsung */}
+      <div className="overflow-hidden rounded-xl">
+        <Image
+          src={src}
+          alt={caption}
+          width={1200}
+          height={750}
+          sizes="(max-width: 768px) 100vw, 700px"
+          className="w-full h-auto transition duration-300 group-hover:scale-105"
+        />
+      </div>
+      <figcaption className="mt-2 w-fit self-start rounded-md bg-white/10 border border-white/10 px-2.5 py-1 text-[10px] text-silverwhite/85 backdrop-blur-sm">
         {caption}
       </figcaption>
     </figure>
@@ -91,7 +250,7 @@ function Screenshot({ src, caption }: { src: string; caption: string }) {
 function MobileShot({ src, caption }: { src: string; caption: string }) {
   return (
     <figure className="group flex flex-col items-center gap-2">
-      <div className="relative w-40 sm:w-44 overflow-hidden rounded-2xl bg-nightblue ring-1 ring-nightblue/10 shadow-lg">
+      <div className="relative w-40 sm:w-44 overflow-hidden rounded-2xl shadow-lg">
         <Image
           src={src}
           alt={caption}
@@ -101,7 +260,7 @@ function MobileShot({ src, caption }: { src: string; caption: string }) {
           className="w-full h-auto transition duration-300 group-hover:scale-105"
         />
       </div>
-      <figcaption className="text-[11px] text-nightblue/60 text-center">
+      <figcaption className="mt-1 rounded-md bg-white/10 border border-white/10 px-2.5 py-1 text-[10px] text-silverwhite/85 backdrop-blur-sm">
         {caption}
       </figcaption>
     </figure>

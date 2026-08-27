@@ -141,10 +141,12 @@ export default function DekstopLayout({
       onClick={handleClickOutside}
       className={`${comfortaa.className} relative w-screen h-screen overflow-hidden`}
     >
-      <Background className="bg-top" />
+      <Background className="object-top" />
       <div className="absolute inset-0 bg-nightblue/50 pointer-events-none" />
-      <TopSparkles />
-      <CursorSparkles />
+      <div className="hidden md:block">
+        <TopSparkles />
+        <CursorSparkles />
+      </div>
 
       {/* Menu bar */}
       <div

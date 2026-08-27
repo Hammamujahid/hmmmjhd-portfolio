@@ -55,10 +55,10 @@ export default function DekstopLayout({
   ];
 
   const socials: AppItem[] = [
-    { label: "Instagram", icon: <FaInstagram />, href: "https://www.instagram.com/" },
-    { label: "LinkedIn", icon: <FaLinkedin />, href: "https://www.linkedin.com/" },
+    { label: "Instagram", icon: <FaInstagram />, href: "https://www.instagram.com/hammamujahid" },
+    { label: "LinkedIn", icon: <FaLinkedin />, href: "https://www.linkedin.com/in/hammamujahid" },
     { label: "Discord", icon: <FaDiscord />, href: "https://discordapp.com/users/892966006971043860" },
-    { label: "WhatsApp", icon: <FaWhatsapp />, href: "https://wa.me/+625755500502" },
+    { label: "WhatsApp", icon: <FaWhatsapp />, href: "https://wa.me/+6285755500502" },
   ];
 
   useEffect(() => {
@@ -149,35 +149,43 @@ export default function DekstopLayout({
       {/* Menu bar */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative z-20 h-8 flex items-center justify-between px-4 sm:px-7 bg-lightdark/70 backdrop-blur-xl border-b border-pink/30"
+        className="relative z-20 h-9 flex items-center justify-between px-4 sm:px-7 bg-gradient-to-b from-white/12 to-white/5 backdrop-blur-2xl border-b border-white/10"
       >
         <div className="flex items-center gap-3 sm:gap-4">
           <button
             onClick={handleOpenMenu}
             aria-label="Buka menu"
             aria-expanded={isOpenMenu}
-            className="flex items-center justify-center w-5 h-5 text-pink hover:drop-shadow-[0_0_6px_#F72585] transition"
+            className={`group relative flex items-center justify-center w-7 h-7 rounded-lg transition ${
+              isOpenMenu
+                ? "bg-pink/20 text-pink shadow-[0_0_10px_rgba(247,37,133,0.4)]"
+                : "text-silverwhite/80 hover:bg-white/10 hover:text-pink"
+            }`}
           >
-            <FaStar className="w-4 h-4" />
+            <FaStar className="w-4 h-4 transition group-hover:rotate-45" />
           </button>
           <span className="text-silverwhite text-xs font-semibold tracking-wide">
-            Hammam Mujahid's Portfolio
+            HM&apos;s Portfolio
           </span>
         </div>
 
         <div className="flex items-center gap-3 text-silverwhite/80">
           <span className="text-silverwhite/60 text-xs">
-            Welcome, <span className="text-silverwhite font-medium">{name}</span>
+            Welcome,{" "}
+            <span className="text-silverwhite font-medium">{name}</span>
           </span>
-          <span className="hidden sm:block text-silverwhite/30 text-xs">|</span>
-          <span className={`${jetbrainsMono.className} text-xs tracking-wide hidden sm:inline`}>
-            {formattedDate} {formattedTime}
+          <span className="hidden sm:block h-3 w-px bg-white/15" />
+          <span className="hidden sm:inline-flex items-center gap-2 rounded-full bg-white/8 border border-white/10 px-3 py-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-pink animate-pulse" />
+            <span className={`${jetbrainsMono.className} text-[11px] tracking-wide text-silverwhite/90`}>
+              {formattedDate} {formattedTime}
+            </span>
           </span>
         </div>
       </div>
 
       {/* Jam widget — mode HP */}
-      <div className="sm:hidden absolute top-14 left-4 z-10 flex flex-col items-start gap-1 px-4 py-3 rounded-2xl bg-lightdark/60 backdrop-blur-xl border border-pink/30 shadow-lg">
+      <div className="sm:hidden absolute top-14 left-4 z-10 flex flex-col items-start gap-1 px-4 py-3 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/10 shadow-lg">
         <span className={`${jetbrainsMono.className} text-3xl font-light tracking-wide text-silverwhite`}>
           {formattedTime}
         </span>
@@ -190,19 +198,45 @@ export default function DekstopLayout({
       {isOpenMenu && (
         <div
           id="menu"
-          className="absolute z-30 top-8 left-3 w-48 bg-lightdark/90 backdrop-blur-xl rounded-b-lg border border-t-0 border-pink/40 overflow-hidden shadow-xl"
+          className="absolute z-30 top-9 left-3 w-52 py-1.5 scale-in bg-white/10 backdrop-blur-2xl rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.5)] ring-1 ring-white/15 overflow-hidden"
         >
-          <button className="w-full flex items-center gap-2 px-3 py-2 text-sm text-silverwhite border-b border-white/10 hover:bg-pink/20 transition" onClick={() => router.push(`/dekstop/about?name=${encodeURIComponent(name)}`)}>
-            <TbInfoOctagonFilled className="w-5 h-5 text-pink" />
-            <span>About Me</span>
+          <button
+            onClick={() => {
+              setIsOpenMenu(false);
+              router.push(`/dekstop/about?name=${encodeURIComponent(name)}`);
+            }}
+            className="group w-full flex items-center gap-3 px-3 py-2.5 text-sm text-silverwhite transition hover:bg-pink/15"
+          >
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-pink/20 text-pink transition group-hover:scale-105">
+              <TbInfoOctagonFilled className="w-4 h-4" />
+            </span>
+            <span className="font-medium">About Me</span>
           </button>
-          <button onClick={handleLock} className="w-full flex items-center gap-2 px-3 py-2 text-sm text-silverwhite border-b border-white/10 hover:bg-pink/20 transition">
-            <BiSolidLock className="w-5 h-5 text-pink" />
-            <span>Lock Screen</span>
+          <div className="mx-3 my-1 border-t border-white/10" />
+          <button
+            onClick={() => {
+              setIsOpenMenu(false);
+              handleLock();
+            }}
+            className="group w-full flex items-center gap-3 px-3 py-2.5 text-sm text-silverwhite transition hover:bg-pink/15"
+          >
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-pink/20 text-pink transition group-hover:scale-105">
+              <BiSolidLock className="w-4 h-4" />
+            </span>
+            <span className="font-medium">Lock Screen</span>
           </button>
-          <button onClick={handleRestart} className="w-full flex items-center gap-2 px-3 py-2 text-sm text-silverwhite hover:bg-pink/20 transition">
-            <HiArrowPath className="w-5 h-5 text-pink" />
-            <span>Restart</span>
+          <div className="mx-3 my-1 border-t border-white/10" />
+          <button
+            onClick={() => {
+              setIsOpenMenu(false);
+              handleRestart();
+            }}
+            className="group w-full flex items-center gap-3 px-3 py-2.5 text-sm text-red-300 transition hover:bg-red-500/15"
+          >
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/20 text-red-300 transition group-hover:scale-105">
+              <HiArrowPath className="w-4 h-4" />
+            </span>
+            <span className="font-medium">Restart</span>
           </button>
         </div>
       )}
@@ -240,7 +274,7 @@ export default function DekstopLayout({
             return (
               <div key={`dock-${item.label}`} className="relative flex flex-col items-center">
                 {isHovered && (
-                  <span className="absolute -top-12 sm:-top-14 text-[11px] sm:text-xs text-silverwhite bg-lightdark/90 px-2.5 py-1.5 rounded-md whitespace-nowrap border border-white/10">
+                  <span className="absolute -top-12 sm:-top-14 scale-in text-[11px] sm:text-xs text-silverwhite bg-lightdark/90 px-2.5 py-1.5 rounded-md whitespace-nowrap border border-white/10">
                     {item.label}
                   </span>
                 )}
@@ -271,18 +305,21 @@ export default function DekstopLayout({
             welcome === "leaving" ? "opacity-0" : "opacity-100"
           }`}
         >
-          <div className="absolute inset-0 bg-nightblue/70" />
-          <div className="relative flex flex-col items-center gap-5">
-            <FaStar className="w-12 h-12 sm:w-14 sm:h-14 text-pink drop-shadow-[0_0_25px_rgba(247,37,133,0.9)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-nightblue/80 via-nightblue/70 to-nightblue/90 backdrop-blur-sm" />
+          <div className="relative flex flex-col items-center gap-6">
+            <div className="relative flex items-center justify-center float-y">
+              <span className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-pink/40 ping-ring" />
+              <FaStar className="relative w-12 h-12 sm:w-14 sm:h-14 text-pink star-spin drop-shadow-[0_0_30px_rgba(247,37,133,0.9)]" />
+            </div>
             <span
-              className={`${jetbrainsMono.className} text-6xl sm:text-8xl font-light tracking-[0.15em] text-silverwhite drop-shadow-[0_0_30px_rgba(228,233,240,0.7)] ${
+              className={`${jetbrainsMono.className} text-center text-6xl sm:text-8xl font-light tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-silverwhite via-white to-pink gradient-shift drop-shadow-[0_0_30px_rgba(228,233,240,0.7)] ${
                 welcome === "shown" ? "welcome-anim" : ""
               }`}
             >
               Welcome
             </span>
             {name && (
-              <span className="text-base sm:text-xl text-silverwhite/80 tracking-widest fade-in-up">
+              <span className="text-base sm:text-xl text-silverwhite/90 tracking-widest fade-in-up">
                 {name}
               </span>
             )}

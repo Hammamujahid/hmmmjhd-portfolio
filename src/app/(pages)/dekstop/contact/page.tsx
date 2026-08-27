@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Comfortaa, JetBrains_Mono } from "next/font/google";
-import { FaEnvelope, FaPhone, FaPaperPlane } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaPaperPlane, FaMapMarkerAlt } from "react-icons/fa";
 
 const comfortaa = Comfortaa({
   weight: ["400", "700"],
@@ -27,6 +27,12 @@ const contactInfo = [
     label: "Phone",
     value: "+62 857 5550 0502",
     href: "tel:+6285755500502",
+  },
+  {
+    icon: <FaMapMarkerAlt className="w-4 h-4" />,
+    label: "Location",
+    value: "Surabaya, Indonesia",
+    href: "#",
   },
 ];
 
@@ -67,17 +73,19 @@ export default function Contact() {
   };
 
   const inputClass =
-    "w-full bg-nightblue/5 border border-nightblue/15 rounded-lg px-3 py-2 text-xs sm:text-sm text-nightblue placeholder:text-nightblue/40 focus:outline-none focus:border-pink/60 focus:ring-2 focus:ring-pink/20 transition";
+    "w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-silverwhite placeholder:text-silverwhite/35 focus:outline-none focus:border-pink/60 focus:ring-4 focus:ring-pink/10 transition";
 
   return (
     <div
       className={`${comfortaa.className} fixed inset-0 z-40 flex items-center justify-center px-4 py-6`}
     >
-      <div className="absolute inset-0 bg-nightblue/50" />
+      <div className="absolute inset-0 bg-nightblue/40 backdrop-blur-sm" />
+      <div className="absolute w-96 h-96 rounded-full bg-pink/20 blur-3xl -top-20 -left-20 pointer-events-none" />
+      <div className="absolute w-80 h-80 rounded-full bg-pink/10 blur-3xl bottom-0 right-0 pointer-events-none" />
 
-      {/* Window ala macOS */}
+      {/* Window kaca */}
       <div
-        className={`relative z-10 w-full max-w-4xl max-h-full flex flex-col bg-silverwhite/95 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-out ${
+        className={`relative z-10 w-full max-w-4xl max-h-full flex flex-col bg-white/10 backdrop-blur-2xl rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] ring-1 ring-white/15 overflow-hidden transition-all duration-300 ease-out ${
           closing
             ? "opacity-0 scale-75 -translate-y-6 origin-center"
             : mounted
@@ -86,15 +94,15 @@ export default function Contact() {
         }`}
       >
         {/* Title bar */}
-        <div className="relative shrink-0 h-9 flex items-center px-4 bg-lightdark border-b border-black/10">
+        <div className="relative shrink-0 h-10 flex items-center px-4 bg-white/5 border-b border-white/10">
           <div className="flex items-center gap-2">
             <button
-              className="w-3 h-3 rounded-full bg-pink"
-              onClick={handleClose}
               aria-label="Close"
+              onClick={handleClose}
+              className="w-3 h-3 rounded-full bg-[#FF5F57] hover:brightness-110 transition"
             />
           </div>
-          <span className="absolute left-1/2 -translate-x-1/2 text-xs font-semibold text-silverwhite/80">
+          <span className="absolute left-1/2 -translate-x-1/2 text-xs font-semibold text-silverwhite/90">
             Contact Me
           </span>
         </div>
@@ -102,28 +110,35 @@ export default function Contact() {
         {/* Konten */}
         <div className="overflow-y-auto flex-1 min-h-0 p-6 sm:p-8">
           {/* Section 1: Title */}
-          <h1 className="text-center text-2xl sm:text-3xl font-bold text-nightblue mb-8">
-            Contact
-          </h1>
+          <div className="text-center mb-8 stagger-item">
+            <span className="inline-block text-[10px] uppercase tracking-[0.3em] text-pink font-bold mb-2">
+              Get In Touch
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-silverwhite">
+              Contact
+            </h1>
+            <div className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-gradient-to-r from-pink to-pink/30" />
+          </div>
 
-          {/* Section 2 & 3: dua kolom (mobile: urut dari atas ke bawah) */}
+          {/* Section 2 & 3: dua kolom */}
           <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10">
-            {/* Kolom kiri: Email & Telepon */}
-            <section className="flex flex-col gap-4 pb-6 md:pb-0 md:pr-10 md:border-r md:border-black/10">
-              {contactInfo.map((item) => (
+            {/* Kolom kiri: info kontak */}
+            <section className="flex flex-col justify-center gap-4 pb-6 md:pb-0 md:pr-10 md:border-r md:border-white/10">
+              {contactInfo.map((item, i) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="group flex items-center gap-3 rounded-xl border border-nightblue/10 bg-nightblue/5 p-4 transition hover:border-pink/50 hover:bg-pink/10"
+                  className="group stagger-item flex items-center gap-4 rounded-xl bg-white/5 border border-white/10 p-4 backdrop-blur-sm transition hover:border-pink/40 hover:bg-white/10 hover:-translate-y-0.5 hover:shadow-lg"
+                  style={{ animationDelay: `${0.1 + i * 0.1}s` }}
                 >
-                  <span className="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-pink/15 text-pink">
+                  <span className="flex items-center justify-center w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br from-pink/30 to-pink/10 text-pink border border-pink/25 transition group-hover:scale-105">
                     {item.icon}
                   </span>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-nightblue/40">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-silverwhite/40">
                       {item.label}
                     </span>
-                    <span className="text-xs sm:text-sm font-medium text-nightblue break-words">
+                    <span className="text-xs sm:text-sm font-semibold text-silverwhite break-words group-hover:text-pink transition">
                       {item.value}
                     </span>
                   </div>
@@ -132,15 +147,15 @@ export default function Contact() {
             </section>
 
             {/* Kolom kanan: Form */}
-            <section className="pt-6 md:pt-0 md:pl-10">
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col gap-4"
-              >
+            <section
+              className="pt-6 md:pt-0 md:pl-10 stagger-item"
+              style={{ animationDelay: "0.3s" }}
+            >
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="contact-name"
-                    className="text-[11px] font-semibold uppercase tracking-wider text-nightblue/40"
+                    className="text-[10px] font-bold uppercase tracking-wider text-silverwhite/50"
                   >
                     Name
                   </label>
@@ -160,7 +175,7 @@ export default function Contact() {
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="contact-email"
-                    className="text-[11px] font-semibold uppercase tracking-wider text-nightblue/40"
+                    className="text-[10px] font-bold uppercase tracking-wider text-silverwhite/50"
                   >
                     Email
                   </label>
@@ -180,7 +195,7 @@ export default function Contact() {
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="contact-message"
-                    className="text-[11px] font-semibold uppercase tracking-wider text-nightblue/40"
+                    className="text-[10px] font-bold uppercase tracking-wider text-silverwhite/50"
                   >
                     Message
                   </label>
@@ -200,9 +215,9 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="self-start flex items-center gap-2 rounded-full bg-pink px-5 py-2.5 text-xs sm:text-sm font-semibold text-white transition enabled:hover:bg-pink/90 enabled:hover:shadow-[0_0_12px_rgba(247,37,133,0.4)] disabled:opacity-60"
+                  className="self-start inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink to-pink/80 px-6 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_16px_rgba(247,37,133,0.35)] transition enabled:hover:shadow-[0_6px_24px_rgba(247,37,133,0.5)] enabled:hover:-translate-y-0.5 disabled:opacity-60"
                 >
-                  <FaPaperPlane className="w-3.5 h-3.5" />
+                  <FaPaperPlane className="w-3.5 h-3.5 transition group-hover:rotate-12" />
                   {status === "sending" ? "Sending..." : "Send Message"}
                 </button>
 

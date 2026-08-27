@@ -68,10 +68,13 @@ export default function Home() {
         >
           <div
             className={`flex flex-col items-center gap-6 transition-all duration-700 ${
-              splashLeaving ? "opacity-0 translate-y-6" : "opacity-100"
+              splashLeaving ? "opacity-0 translate-y-6 scale-90" : "opacity-100"
             }`}
           >
-            <FaStar className="w-16 h-16 sm:w-20 sm:h-20 text-white animate-pulse fade-in-up drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]" />
+            <div className="relative flex items-center justify-center">
+              <span className="absolute w-24 h-24 sm:w-28 sm:h-28 rounded-full border border-white/20 ping-ring" />
+              <FaStar className="relative w-16 h-16 sm:w-20 sm:h-20 text-white star-spin drop-shadow-[0_0_25px_rgba(255,255,255,0.9)]" />
+            </div>
             <span
               className={`text-[10px] sm:text-xs text-white/60 tracking-[0.3em] uppercase fade-in-up ${
                 splashLeaving ? "" : "delay-200"
@@ -101,12 +104,13 @@ export default function Home() {
           showSplash ? "opacity-0" : "fade-in-up"
         }`}
       >
-        <div className="relative">
-          <div className="absolute inset-0 rounded-full bg-pink/20 blur-xl scale-110" />
+        <div className="relative float-y">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-pink/40 to-pink/10 blur-2xl scale-125" />
+          <span className="absolute w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-pink/40 ping-ring" />
           <FaUserCircle className="relative w-20 h-20 sm:w-24 sm:h-24 text-silverwhite/90 drop-shadow-lg" />
         </div>
 
-        <div className="text-base sm:text-lg font-bold text-silverwhite text-center">
+        <div className="text-base sm:text-lg font-bold text-silverwhite text-center tracking-wide">
           Hammam Mujahid&apos;s Portfolio
         </div>
 
@@ -117,7 +121,7 @@ export default function Home() {
                 type="text"
                 name="name"
                 id="name"
-                maxLength={15}
+                maxLength={8}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 onKeyDown={handleKeyDown}

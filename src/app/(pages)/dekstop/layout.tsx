@@ -34,9 +34,9 @@ export default function DekstopLayout({
   const [welcome, setWelcome] = useState<"shown" | "leaving" | "hidden">("shown");
   const [restartBlack, setRestartBlack] = useState(false);
 
-  // Welcome overlay: tampil 3 detik, lalu fade-out
+  // Welcome overlay: tampil singkat, lalu fade-out
   useEffect(() => {
-    const t = setTimeout(() => setWelcome("leaving"), 3000);
+    const t = setTimeout(() => setWelcome("leaving"), 2000);
     return () => clearTimeout(t);
   }, []);
 

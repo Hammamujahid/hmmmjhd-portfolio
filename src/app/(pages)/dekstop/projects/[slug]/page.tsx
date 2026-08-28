@@ -136,19 +136,18 @@ const projectData: Record<string, ProjectDetail> = {
     timeline: "April 2024 - June 2024",
     type: "Academic Project",
     description:
-      "E-Siklinik is a mobile application designed to digitize clinic management operations. It streamlines patient registration, medical record management, and appointment scheduling, providing healthcare facilities with an efficient digital solution to replace manual processes.",
+      "E-Siklinik is a clinic queue and patient checkup system that digitizes the entire patient journey. Patients can take their place in the queue and go through checkups, then receive their checkup result as a soft file directly in the app. Beyond that, E-Siklinik helps the clinic manage essential data such as patient records, doctors, medicines, and doctor schedules, all in one place. Built with Flutter for the mobile app and Laravel as the backend, it replaces manual, paper-based clinic workflows with a cleaner, more efficient experience.",
     tech: ["Flutter", "Laravel", "MySQL"],
     features: [
-      "Patient registration and profile management system.",
-      "Digital medical records with history tracking.",
-      "Appointment scheduling and management.",
-      "Real-time data synchronization across devices.",
+      "Queue system for patients along with a streamlined checkup flow.",
+      "Checkup results delivered to patients as soft files within the app.",
+      "Data management for patients, doctors, medicines, and doctor schedules.",
+      "Mobile app built with Flutter and a Laravel backend for reliable data handling.",
     ],
     contributions: [
-      "Designed and developed the complete mobile application using Flutter.",
-      "Implemented Laravel and MySQL for the backend and database.",
-      "Created intuitive UI/UX for healthcare staff and patients.",
-      "Built the medical records and appointment management modules.",
+      "Handled the fetching and slicing of nearly all parts of the application.",
+      "Implemented the queue, checkup, and result features along with the related data management screens.",
+      "Collaborated with teammates on the rest of the app, with the medicine management module handled by another member.",
     ],
     template: "mobile",
     logo: "/images/e-siklinik/logo.png",
@@ -169,19 +168,18 @@ const projectData: Record<string, ProjectDetail> = {
     timeline: "November 2023 - December 2023",
     type: "Academic Project",
     description:
-      "E-Learning is a web-based learning management system designed to facilitate online education. It provides a platform for instructors to upload course materials, create quizzes, and track student progress, while enabling students to access learning content and submit assignments digitally.",
+      "E-Learning is a web-based learning management system built around three roles: admin, teacher, and regular user. Admins have full control over the platform. Teachers can manage their own materials, upload modules, and create their own questions and quizzes. Regular users can access the available learning modules and work on the questions created by teachers. Built with Laravel as the backend and ReactJS for the frontend, it brings the whole teaching and learning flow into one accessible web app.",
     tech: ["Laravel", "ReactJS", "PostgreSQL"],
     features: [
-      "Course content management with file uploads.",
-      "Online quiz and assessment system.",
-      "Student progress tracking and grade management.",
-      "Discussion forum for student-instructor interaction.",
+      "Three-role access system: admin, teacher, and regular user.",
+      "Teacher tools for managing materials, uploading modules, and creating questions.",
+      "Student access to learning modules and the ability to work on questions.",
+      "Admin capabilities covering all platform management.",
     ],
     contributions: [
-      "Developed the full-stack application using Laravel framework.",
-      "Designed and implemented the database schema with PostgreSQL.",
-      "Built responsive UI using Bootstrap for cross-device compatibility.",
-      "Implemented authentication and role-based access control.",
+      "Developed the entire platform end-to-end as a solo project.",
+      "Built the Laravel backend, ReactJS frontend, and database schema.",
+      "Implemented the role-based flows for admin, teacher, and regular users.",
     ],
     template: "web",
     logo: "/images/e-learning/logo.png",
@@ -194,23 +192,22 @@ const projectData: Record<string, ProjectDetail> = {
   docxtra: {
     name: "DOCXTRA",
     category: "Web",
-    role: "Mobile & Frontend Developer (Team)",
+    role: "Frontend & Mobile Developer (Team)",
     timeline: "February 2024 - June 2024",
     type: "Academic Project",
     description:
-      "DOCXTRA is a document management and collaboration platform that combines web and mobile interfaces. It enables teams to create, edit, and share documents in real-time, with features for version control, commenting, and collaborative editing across multiple devices.",
-    tech: ["Next.js", "Flutter", "Firebase", "FastAPI"],
+      "Managing, understanding, and checking documents is often tedious, especially when juggling PDFs, Word files, notes, and slides all at once. DOCXTRA solves this by combining AI-powered document tools with a clean, cross-platform experience. At its core, open-source AI is integrated into a FastAPI backend that exposes API endpoints, powering the features inside a Flutter application. Users can ask questions about an uploaded document, convert documents into other formats, get automatic summaries, compare two or more documents for plagiarism, and check document syntax. A landing page explains what DOCXTRA does and guides visitors straight to the Play Store, so anyone who works with documents every day can manage, understand, and verify them much faster in one place.",
+    tech: ["FastAPI", "Flutter", "Open Source AI", "Next.js"],
     features: [
-      "Real-time collaborative document editing.",
-      "Version history and document rollback capabilities.",
-      "Cross-platform access via web and mobile applications.",
-      "Team collaboration with comments and annotations.",
+      "AI-powered question and answer feature for documents uploaded to the system.",
+      "Document conversion between formats, including PDF, Word, notes, and PPT.",
+      "Document summarization and plagiarism checking across multiple documents.",
+      "Syntax checking for documents, plus a landing page that guides users to the Play Store app.",
     ],
     contributions: [
-      "Developed the web application using Next.js with real-time features.",
-      "Built the mobile companion app using Flutter.",
-      "Implemented document synchronization and version control system.",
-      "Designed the database architecture using Firebase.",
+      "Built the web frontend for DOCXTRA.",
+      "Sliced and integrated the AI question-and-answer feature into the mobile app.",
+      "Helped slice other parts of the application, while the remaining features were handled by my teammates.",
     ],
     template: "mixed",
     logo: "/images/docxtra/logo.png",
@@ -223,6 +220,36 @@ const projectData: Record<string, ProjectDetail> = {
       { src: "/images/docxtra/1.png", caption: "Web view" },
       { src: "/images/docxtra/2.png", caption: "3d mockup view" },
     ],
+  },
+  "ai-digital": {
+    name: "AI Digital",
+    category: "Mobile",
+    role: "Mobile Developer (Internship)",
+    timeline: "2025",
+    type: "Company Project (Internship)",
+    description:
+      "AI Digital is a community-based IT system in a mobile application that connects community administrators and members. It helps manage members' savings, whether in cash or gold in the future, and integrates member data so community activities are recorded and run in real time, with all activity managed by the community administrators. Members can save, pay dues, transfer money between members, buy local products, top up prepaid phone credit and electricity tokens, pay water, electricity, and internet bills, book plane tickets, and collect cashback from transactions to use for payments. The community also brings a local marketplace to life, letting members buy and sell products within the community and showcase their standout goods. Payments are handled through Xendit, chosen for its competitive fees, flexible methods including virtual accounts, e-wallets, credit cards, and QRIS, and easy integration. The result is a thriving community economy: members get convenient, all-in-one financial tools, administrators gain full real-time control and recording of every activity, and the community becomes more productive, self-sufficient, and financially stable over time.",
+    tech: ["Flutter", "Xendit", "PWA"],
+    features: [
+      "Community financial management, including member savings, dues, and member-to-member transfers.",
+      "Bill payments, top-ups, plane tickets, and cashback that can be reused for payments.",
+      "Local community marketplace for buying and selling products between members.",
+      "Payments powered by Xendit with virtual accounts, e-wallets, credit cards, and QRIS.",
+    ],
+    contributions: [
+      "Added payment features using Xendit (Dana, Link Aja, OVO, ShopeePay) in the PWA app.",
+      "Implemented admin fee adjustments and cashback features in the mobile and PWA apps.",
+      "Added KTA card conditions to distinguish members, administrators, and alumni.",
+      "Built the monthly marketplace (Pasar SHU) and redesigned payment pages in the mobile app.",
+      "Handled slicing for several SHU-related pages in the AI Digital mobile app.",
+    ],
+    template: "mixed",
+    logo: "/images/ai-digital/logo.jpeg",
+    screenshots: [
+      { src: "/images/ai-digital/1.png", caption: "App view" },
+      { src: "/images/ai-digital/2.png", caption: "Mobile mockup view" },
+    ],
+    github: "https://github.com/",
   }
 };
 
@@ -408,6 +435,7 @@ export default function ProjectDetail() {
             </div>
 
             {/* Screenshots sesuai template */}
+            {project.screenshots.length > 0 && (
             <div className="stagger-item flex flex-col gap-3" style={{ animationDelay: "0.24s" }}>
               <h3 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-silverwhite/50">
                 <span className="w-3 h-3 rounded-sm bg-gradient-to-br from-pink to-pink/60" />
@@ -441,6 +469,7 @@ export default function ProjectDetail() {
                 </div>
               )}
             </div>
+            )}
 
             {/* Key Features */}
             {project.features && project.features.length > 0 && (

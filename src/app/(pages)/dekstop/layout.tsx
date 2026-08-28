@@ -145,8 +145,8 @@ export default function DekstopLayout({
       <div className="absolute inset-0 bg-nightblue/50 pointer-events-none" />
       <div className="hidden md:block">
         <TopSparkles />
-        <CursorSparkles />
       </div>
+      <CursorSparkles />
 
       {/* Menu bar */}
       <div

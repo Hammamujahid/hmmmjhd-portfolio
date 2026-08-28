@@ -79,7 +79,11 @@ export default function Contact() {
     <div
       className={`${comfortaa.className} fixed inset-0 z-40 flex items-center justify-center px-4 py-6`}
     >
-      <div className="absolute inset-0 bg-nightblue/40 backdrop-blur-sm" />
+      <div
+        className={`absolute inset-0 bg-nightblue/40 backdrop-blur-sm transition-opacity duration-300 ${
+          closing ? "opacity-0" : "opacity-100"
+        }`}
+      />
       <div className="absolute w-96 h-96 rounded-full bg-pink/20 blur-3xl -top-20 -left-20 pointer-events-none" />
       <div className="absolute w-80 h-80 rounded-full bg-pink/10 blur-3xl bottom-0 right-0 pointer-events-none" />
 

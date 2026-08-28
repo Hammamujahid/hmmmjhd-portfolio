@@ -21,7 +21,7 @@ const FOLDER_ICON = <FaFolder className="w-6 h-6 text-pink" />;
 type Project = {
   slug: string;
   name: string;
-  category: "Web" | "Mobile" | "Other";
+  category: "Web" | "Mobile" | "Other" | ("Web" | "Mobile" | "Other")[];
   icon?: React.ReactNode;
   logo?: string;
 };
@@ -42,7 +42,7 @@ const projects: Project[] = [
   {
     slug: "docxtra",
     name: "DOCXTRA",
-    category: "Web",
+    category: ["Web", "Mobile"],
     logo: "/images/docxtra/logo.png",
   },
     {
@@ -67,7 +67,7 @@ const projects: Project[] = [
     slug: "ai-digital",
     name: "AI Digital",
     category: "Mobile",
-    icon: <FaFolder className="w-6 h-6 text-pink" />,
+    logo: "/images/ai-digital/logo.jpeg",
   },
   {
     slug: "n8n-worklows",
@@ -77,10 +77,10 @@ const projects: Project[] = [
   },
 ];
 
-const folders = [
-  { id: "Web", label: "Web", icon: <FaFolder className="w-4 h-4 text-pink" />, count: projects.filter((p) => p.category === "Web").length },
-  { id: "Mobile", label: "Mobile", icon: <FaFolder className="w-4 h-4 text-pink" />, count: projects.filter((p) => p.category === "Mobile").length },
-  { id: "Other", label: "Other", icon: <FaFolder className="w-4 h-4 text-pink" />, count: projects.filter((p) => p.category === "Other").length },
+const folders: { id: "Web" | "Mobile" | "Other"; label: string; icon: React.ReactNode; count: number }[] = [
+  { id: "Web", label: "Web", icon: <FaFolder className="w-4 h-4 text-pink" />, count: projects.filter((p) => p.category.includes("Web")).length },
+  { id: "Mobile", label: "Mobile", icon: <FaFolder className="w-4 h-4 text-pink" />, count: projects.filter((p) => p.category.includes("Mobile")).length },
+  { id: "Other", label: "Other", icon: <FaFolder className="w-4 h-4 text-pink" />, count: projects.filter((p) => p.category.includes("Other")).length },
 ];
 
 export default function Projects() {
@@ -88,7 +88,7 @@ export default function Projects() {
   const [mounted, setMounted] = useState(false);
   const [closing, setClosing] = useState(false);
   const [name, setName] = useState("");
-  const [activeId, setActiveId] = useState("");
+  const [activeId, setActiveId] = useState<"Web" | "Mobile" | "Other" | "">("");
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
@@ -107,7 +107,7 @@ export default function Projects() {
 
   const activeFolder = folders.find((f) => f.id === activeId) ?? null;
   const visibleProjects = activeId
-    ? projects.filter((p) => p.category === activeId)
+    ? projects.filter((p) => p.category.includes(activeId))
     : projects;
 
   const sortedProjects = [...visibleProjects].sort((a, b) =>
@@ -118,7 +118,11 @@ export default function Projects() {
     <div
       className={`${comfortaa.className} fixed inset-0 z-40 flex items-center justify-center px-4 py-6`}
     >
-      <div className="absolute inset-0 bg-nightblue/40 backdrop-blur-sm" />
+      <div
+        className={`absolute inset-0 bg-nightblue/40 backdrop-blur-sm transition-opacity duration-300 ${
+          closing ? "opacity-0" : "opacity-100"
+        }`}
+      />
       <div className="absolute w-96 h-96 rounded-full bg-pink/20 blur-3xl -top-20 -left-20 pointer-events-none" />
       <div className="absolute w-80 h-80 rounded-full bg-pink/10 blur-3xl bottom-0 right-0 pointer-events-none" />
 

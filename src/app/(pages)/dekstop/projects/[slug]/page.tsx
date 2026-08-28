@@ -249,7 +249,7 @@ const projectData: Record<string, ProjectDetail> = {
   },
   "ai-digital": {
     name: "AI Digital",
-    category: ["Web", "Mobile"],
+    category: ["Mobile"],
     role: "Mobile Developer (Internship)",
     timeline: "July 2024 - December 2024",
     type: "Company Project (Internship)",
@@ -272,7 +272,7 @@ const projectData: Record<string, ProjectDetail> = {
     template: "mixed",
     logo: "/images/ai-digital/logo.jpeg",
     screenshots: [
-      { src: "/images/ai-digital/1.png", caption: "Method payment page view" },
+      { src: "/images/ai-digital/1.png", caption: "PWA view" },
       { src: "/images/ai-digital/2.png", caption: "3d mockup view" },
     ],
     links:[
@@ -336,6 +336,12 @@ export default function ProjectDetail() {
   const [closing, setClosing] = useState(false);
   const [name, setName] = useState("");
   const project = params?.slug ? projectData[params.slug] : undefined;
+  const fallbackName = params?.slug
+    ? params.slug
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ")
+    : "Project";
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     setName(query.get("name") ?? "");
@@ -350,7 +356,38 @@ export default function ProjectDetail() {
     }, 320);
   };
   if (!project) {
-    return null;
+    return (
+      <div className={`${comfortaa.className} fixed inset-0 z-40`}>
+        <div className="absolute inset-0 bg-nightblue/40 backdrop-blur-sm" />
+        <div className="absolute w-[36rem] h-[36rem] rounded-full bg-pink/20 blur-3xl -top-40 -left-40 pointer-events-none" />
+        <div className="absolute w-[30rem] h-[30rem] rounded-full bg-pink/10 blur-3xl bottom-0 right-0 pointer-events-none" />
+        <div
+          className={`absolute inset-2 sm:inset-3 md:inset-4 flex flex-col bg-white/10 backdrop-blur-2xl rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] ring-1 ring-white/15 overflow-hidden transition-all duration-300 ease-out ${
+            closing ? "opacity-0 scale-95" : mounted ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          }`}
+        >
+          <div className="relative shrink-0 h-10 flex items-center px-4 bg-white/5 border-b border-white/10">
+            <div className="flex items-center gap-2">
+              <button
+                aria-label="Back"
+                onClick={handleBack}
+                className="w-3 h-3 rounded-full bg-[#FF5F57] hover:brightness-110 transition"
+              />
+              <span className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
+              <span className="w-3 h-3 rounded-full bg-[#28C840]" />
+            </div>
+            <span className="absolute left-1/2 -translate-x-1/2 text-xs font-semibold text-silverwhite/90">
+              {fallbackName}
+            </span>
+          </div>
+          <div className="flex flex-1 min-h-0 items-center justify-center">
+            <span className="text-2xl sm:text-3xl font-bold text-silverwhite/50 tracking-[0.3em] uppercase fade-in-up">
+              Soon
+            </span>
+          </div>
+        </div>
+      </div>
+    );
   }
   return (
     <div className={`${comfortaa.className} fixed inset-0 z-40`}>
@@ -402,54 +439,49 @@ export default function ProjectDetail() {
                   />{" "}
                 </div>{" "}
               </div>{" "}
-              <div className="flex flex-col gap-2">
-                {" "}
+              <div className="flex flex-col gap-2.5">
+                {/* Row 1: title + category */}
                 <div className="flex flex-wrap items-center gap-2">
-                  {" "}
                   <span className="text-xl sm:text-3xl font-bold text-silverwhite">
-                    {" "}
-                    {project.name}{" "}
-                  </span>{" "}
+                    {project.name}
+                  </span>
                   {project.category.map((c) => (
                     <span
                       key={c}
                       className="inline-flex items-center rounded-full bg-pink/15 border border-pink/30 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-outline-pink"
                     >
-                      {" "}
-                      {c}{" "}
+                      {c}
                     </span>
-                  ))}{" "}
-                  {project.type && (
+                  ))}
+                </div>
+
+                {/* Row 2: type */}
+                {project.type && (
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="inline-flex items-center rounded-full bg-white/8 border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold text-silverwhite/85">
-                      {" "}
-                      {project.type}{" "}
+                      {project.type}
                     </span>
-                  )}{" "}
-                </div>{" "}
+                  </div>
+                )}
+
+                {/* Row 3: role + timeline */}
                 {(project.role || project.timeline) && (
-                  <div className="flex flex-wrap gap-2">
-                    {" "}
+                  <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
                     {project.role && (
                       <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/8 px-2.5 py-1 text-[10px] text-silverwhite/80">
-                        {" "}
-                        <span className="uppercase text-[9px] font-bold text-silverwhite/40">
-                          Role
-                        </span>{" "}
-                        {project.role}{" "}
+                        <span className="uppercase text-[9px] font-bold text-silverwhite/40">Role</span>
+                        {project.role}
                       </span>
-                    )}{" "}
+                    )}
                     {project.timeline && (
                       <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/8 px-2.5 py-1 text-[10px] text-silverwhite/80">
-                        {" "}
-                        <span className="uppercase text-[9px] font-bold text-silverwhite/40">
-                          Timeline
-                        </span>{" "}
-                        {project.timeline}{" "}
+                        <span className="uppercase text-[9px] font-bold text-silverwhite/40">Timeline</span>
+                        {project.timeline}
                       </span>
-                    )}{" "}
+                    )}
                   </div>
-                )}{" "}
-              </div>{" "}
+                )}
+              </div>
             </div>{" "}
             {/* Tech stack */}{" "}
             <div

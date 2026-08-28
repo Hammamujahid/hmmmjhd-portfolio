@@ -78,13 +78,6 @@ export default function Home() {
       {/* Veil gelap biar konsisten sama tampilan desktop & lock screen */}
       <div className="absolute inset-0 bg-nightblue/60 backdrop-blur-sm" />
 
-      {/* Label kecil ala menu bar, di pojok kanan atas */}
-      <div
-        className={`${jetbrainsMono.className} absolute top-5 right-6 text-[10px] sm:text-xs text-silverwhite/60 tracking-wide border border-pink/30 rounded-full px-3 py-1 bg-nightblue/40`}
-      >
-        In Progress
-      </div>
-
       {/* Kartu login */}
       <div
         className={`relative z-10 w-full h-full flex flex-col items-center justify-center gap-4 px-6 ${

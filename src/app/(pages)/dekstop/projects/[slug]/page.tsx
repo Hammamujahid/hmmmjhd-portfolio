@@ -8,6 +8,8 @@ import {
   FaExternalLinkAlt,
   FaAndroid,
   FaFilePowerpoint,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 const comfortaa = Comfortaa({ weight: ["400", "700"], subsets: ["latin"] });
 const jetbrainsMono = JetBrains_Mono({
@@ -203,8 +205,10 @@ const projectData: Record<string, ProjectDetail> = {
     logo: "/images/e-learning/logo.png",
     github: "https://github.com/Hammamujahid/e-learning",
     screenshots: [
-      { src: "/images/e-learning/1.png", caption: "Hero section" },
-      { src: "/images/e-learning/2.png", caption: "Material page" },
+      { src: "/images/e-learning/1.png", caption: "Homepage view" },
+      { src: "/images/e-learning/2.png", caption: "Dashboard view" },
+      { src: "/images/e-learning/3.png", caption: "Feature add material view" },
+      { src: "/images/e-learning/4.png", caption: "Quiz page view" },
     ],
   },
   docxtra: {
@@ -284,49 +288,149 @@ const projectData: Record<string, ProjectDetail> = {
     ],
   },
 };
-function Screenshot({ src, caption }: { src: string; caption: string }) {
+type Shot = { src: string; caption: string };
+
+/* Semua gambar (web / mobile) dirender dengan tinggi stage yang sama */
+function Slide({
+  shot,
+  isMobile,
+  priority,
+}: {
+  shot: Shot;
+  isMobile: boolean;
+  priority?: boolean;
+}) {
   return (
-    <figure className="group flex flex-col">
-      {" "}
-      {/* Tanpa background ΓÇö gambar langsung */}{" "}
-      <div className="overflow-hidden rounded-xl">
-        {" "}
-        <Image
-          src={src}
-          alt={caption}
-          width={1200}
-          height={750}
-          sizes="(max-width: 768px) 100vw, 700px"
-          className="w-full h-auto transition duration-300 group-hover:scale-105"
-        />{" "}
-      </div>{" "}
-      <figcaption className="mt-2 w-fit self-start rounded-md bg-white/10 border border-white/10 px-2.5 py-1 text-[10px] text-silverwhite/85 backdrop-blur-sm">
-        {" "}
-        {caption}{" "}
-      </figcaption>{" "}
-    </figure>
+    <div className="relative h-full w-full">
+      <Image
+        src={shot.src}
+        alt={shot.caption}
+        fill
+        sizes="(max-width: 768px) 100vw, 900px"
+        priority={priority}
+        className={`object-contain ${
+          isMobile
+            ? "drop-shadow-[0_10px_30px_rgba(0,0,0,0.45)]"
+            : "drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
+        }`}
+      />
+    </div>
   );
 }
-function MobileShot({ src, caption }: { src: string; caption: string }) {
+
+function Carousel({
+  shots,
+  variant,
+}: {
+  shots: Shot[];
+  variant: "web" | "mobile" | "mixed";
+}) {
+  const [index, setIndex] = useState(0);
+  const total = shots.length;
+
+  const isMobileShot = (i: number) =>
+    variant === "mobile" || (variant === "mixed" && i > 0);
+
+  const go = (dir: number) => {
+    setIndex((prev) => (prev + dir + total) % total);
+  };
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") setIndex((p) => (p - 1 + total) % total);
+      if (e.key === "ArrowRight") setIndex((p) => (p + 1) % total);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [total]);
+
+  if (total === 0) return null;
+
   return (
-    <figure className="group flex flex-col items-center gap-2">
-      {" "}
-      <div className="relative w-40 sm:w-44 overflow-hidden rounded-2xl shadow-lg">
-        {" "}
-        <Image
-          src={src}
-          alt={caption}
-          width={720}
-          height={1280}
-          sizes="176px"
-          className="w-full h-auto transition duration-300 group-hover:scale-105"
-        />{" "}
-      </div>{" "}
-      <figcaption className="mt-1 rounded-md bg-white/10 border border-white/10 px-2.5 py-1 text-[10px] text-silverwhite/85 backdrop-blur-sm">
-        {" "}
-        {caption}{" "}
-      </figcaption>{" "}
-    </figure>
+    <div className="group/carousel flex flex-col gap-3">
+      {/* Stage */}
+      <div className="relative rounded-2xl bg-gradient-to-b from-white/8 to-white/[0.02] ring-1 ring-white/10 p-3 sm:p-4 overflow-hidden">
+        {/* Glow dekoratif */}
+        <div className="pointer-events-none absolute -top-16 -right-16 w-48 h-48 rounded-full bg-pink/20 blur-3xl" />
+
+        <div className="relative h-[240px] sm:h-[340px] md:h-[420px] overflow-hidden">
+          <div
+            className="flex h-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{ transform: `translateX(-${index * 100}%)` }}
+          >
+            {shots.map((shot, i) => (
+              <div key={shot.caption} className="h-full w-full shrink-0 px-1">
+                <Slide
+                  shot={shot}
+                  isMobile={isMobileShot(i)}
+                  priority={i === 0}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Caption overlay */}
+        <div className="mt-3 flex items-center justify-center">
+          <span className="rounded-full bg-nightblue/50 border border-white/10 px-3 py-1 text-[10px] sm:text-[11px] text-silverwhite/85 backdrop-blur-md">
+            {shots[index].caption}
+          </span>
+        </div>
+
+        {/* Nav buttons */}
+        {total > 1 && (
+          <>
+            <button
+              onClick={() => go(-1)}
+              aria-label="Previous image"
+              className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-nightblue/60 border border-white/15 text-silverwhite backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 focus-visible:opacity-100 transition-all hover:bg-pink/40 hover:border-pink/50 hover:scale-110 max-sm:opacity-100"
+            >
+              <FaChevronLeft className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => go(1)}
+              aria-label="Next image"
+              className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-nightblue/60 border border-white/15 text-silverwhite backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 focus-visible:opacity-100 transition-all hover:bg-pink/40 hover:border-pink/50 hover:scale-110 max-sm:opacity-100"
+            >
+              <FaChevronRight className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Counter */}
+            <span
+              className={`${jetbrainsMono.className} absolute top-4 right-4 rounded-full bg-nightblue/60 border border-white/10 px-2.5 py-1 text-[10px] text-silverwhite/80 backdrop-blur-md`}
+            >
+              {index + 1} / {total}
+            </span>
+          </>
+        )}
+      </div>
+
+      {/* Thumbnails */}
+      {total > 1 && (
+        <div className="flex items-center justify-center gap-2">
+          {shots.map((shot, i) => (
+            <button
+              key={shot.caption}
+              onClick={() => setIndex(i)}
+              aria-label={`Go to ${shot.caption}`}
+              className={`relative h-12 w-16 shrink-0 overflow-hidden rounded-lg border transition ${
+                i === index
+                  ? "border-pink ring-2 ring-pink/30 opacity-100"
+                  : "border-white/10 opacity-50 hover:opacity-90"
+              }`}
+            >
+              <Image
+                src={shot.src}
+                alt={shot.caption}
+                fill
+                sizes="64px"
+                className="object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 export default function ProjectDetail() {
@@ -473,12 +577,12 @@ export default function ProjectDetail() {
                         {project.role}
                       </span>
                     )}
-                    {project.timeline && (
+                    {/* {project.timeline && (
                       <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/8 px-2.5 py-1 text-[10px] text-silverwhite/80">
                         <span className="uppercase text-[9px] font-bold text-silverwhite/40">Timeline</span>
                         {project.timeline}
                       </span>
-                    )}
+                    )} */}
                   </div>
                 )}
               </div>
@@ -535,35 +639,10 @@ export default function ProjectDetail() {
                   <span className="w-3 h-3 rounded-sm bg-gradient-to-br from-pink to-pink/60" />{" "}
                   Images{" "}
                 </h3>{" "}
-                {project.template === "web" && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {" "}
-                    {project.screenshots.map((s) => (
-                      <Screenshot key={s.caption} {...s} />
-                    ))}{" "}
-                  </div>
-                )}{" "}
-                {project.template === "mobile" && (
-                  <div className="flex flex-wrap items-start justify-center gap-6 sm:gap-10 py-4">
-                    {" "}
-                    {project.screenshots.map((s) => (
-                      <MobileShot key={s.caption} {...s} />
-                    ))}{" "}
-                  </div>
-                )}{" "}
-                {project.template === "mixed" && (
-                  <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-8">
-                    {" "}
-                    <div className="flex-1 min-w-0">
-                      {" "}
-                      <Screenshot {...project.screenshots[0]} />{" "}
-                    </div>{" "}
-                    <div className="flex-shrink-0 flex justify-center">
-                      {" "}
-                      <MobileShot {...project.screenshots[1]} />{" "}
-                    </div>{" "}
-                  </div>
-                )}{" "}
+                <Carousel
+                  shots={project.screenshots}
+                  variant={project.template}
+                />
               </div>
             )}{" "}
             {/* Key Features */}{" "}
